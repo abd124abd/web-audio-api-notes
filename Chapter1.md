@@ -6,37 +6,41 @@
 	- no reliable pre-buffering
 	- no real-time effects
 	- no way to analyze sounds
+
 - Web Audio API audo context
 	- a set of nodes which define how an audio stream flows from its source to its destination
 	- as audio passes through a node, its properties can be influenced
 	- simplest example is a source node leading directly to a destination node
 	- there can be many incoming/outgoing connections to a node
 	- multiple incoming streams are blended by the API
+
 - One of the main uses of audio contexts is to create audio nodes
+
 - types of audio nodes:
 	- source nodes - sound sources like audio buffers, live audio inputs, <audio> tags, oscillators, and JS processors
 	- modification nodes - filters, convolvers, panners, JS processors
 	- analysis nodes - analyzers and JS processors
 	- destination nodes - audio outputs and offline processing buffers
+	
 - input and output node's connected using connect() function, example
 
-	```
-	// Create the source.
-	var source = context.createBufferSource();
-	// Create the gain node.
-	var gain = context.createGain();
-	// Connect source to filter, filter to destination.
-	source.connect(gain);
-	gain.connect(context.destination);
-	```
+```
+// Create the source.
+var source = context.createBufferSource();
+// Create the gain node.
+var gain = context.createGain();
+// Connect source to filter, filter to destination.
+source.connect(gain);
+gain.connect(context.destination);
+```
 
 - connections can be dynamically changed as well, for example disconnect()
 
-	```
-	source.disconnect(0);
-	gain.disconnect(0);
-	source.connect(context.destination);
-	```
+```
+source.disconnect(0);
+gain.disconnect(0);
+source.connect(context.destination);
+```
 
 - what is sound?
 	- longitudinal / pressure wave travelling through air between mediums
@@ -74,17 +78,17 @@
 
 - creating source node and playing sound after loading buffer
 	
-	```
-	function playSound(buffer) {
-	// create the source node
-	  var source = context.createBufferSource();
-	// load buffer into source node
-	  source.buffer = buffer;
-	// connect source node buffer to destination node
-	  source.connect(context.destination);
-	// play
-	  source.start(0);
-	}
+```
+function playSound(buffer) {
+// create the source node
+  var source = context.createBufferSource();
+// load buffer into source node
+  source.buffer = buffer;
+// connect source node buffer to destination node
+  source.connect(context.destination);
+// play
+  source.start(0);
+}
 	```
 
 - ex JavaScript abstraction class for putting everything together into a loader and returns audio buffers
